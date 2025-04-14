@@ -4,6 +4,8 @@
     "version": "0.0.1",
     "private": true,
     "dependencies": {
-        "node-red-contrib-binance": "~0.1.7"
+        "@bartbutenaers/node-red-dashboard-2-ui-web-push": "file:nodes/bartbutenaers-node-red-dashboard-2-ui-web-push-1.0.0.tgz",
+        "@flowfuse/node-red-dashboard": "^1.22.1",
+        "@node-red-contrib-themes/theme-collection": "~4.0.11"
     }
 }
