@@ -402,7 +402,7 @@ module.exports = {
          * See https://github.com/node-red-contrib-themes/theme-collection for
          * a collection of themes to chose from.
          */
-        //theme: "",
+        theme: "dark",
 
         /** To disable the 'Welcome to Node-RED' tour that is displayed the first
          * time you access the editor for each release of Node-RED, set this to false
@@ -420,7 +420,7 @@ module.exports = {
 
         projects: {
             /** To enable the Projects feature, set this value to true */
-            enabled: false,
+            enabled: true,
             workflow: {
                 /** Set the default projects workflow mode.
                  *  - manual - you must manually commit changes
