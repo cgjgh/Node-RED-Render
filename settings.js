@@ -73,14 +73,14 @@ module.exports = {
     /** To password protect the Node-RED editor and admin API, the following
      * property can be used. See https://nodered.org/docs/security.html for details.
      */
-    adminAuth: {
-        type: "credentials",
-        users: [{
-            username: "admin",
-            password: "$2b$08$wuAqPiKJlVN27eF5qJp.RuQYuy6ZYONW7a/UWYxDTtwKFCdB8F19y",
-            permissions: "*"
-        }]
-    },
+    // adminAuth: {
+    //     type: "credentials",
+    //     users: [{
+    //         username: "admin",
+    //         password: "$2b$08$wuAqPiKJlVN27eF5qJp.RuQYuy6ZYONW7a/UWYxDTtwKFCdB8F19y",
+    //         permissions: "*"
+    //     }]
+    // },
 
     /** The following property can be used to enable HTTPS
      * This property can be either an object, containing both a (private) key
@@ -90,10 +90,10 @@ module.exports = {
      */
 
     /** Option 1: static object */
-    https: {
-      key: require("fs").readFileSync('privkey.pem'),
-      cert: require("fs").readFileSync('cert.pem')
-    },
+    // https: {
+    //   key: require("fs").readFileSync('privkey.pem'),
+    //   cert: require("fs").readFileSync('cert.pem')
+    // },
 
     /** Option 2: function that returns the HTTP configuration object */
     // https: function() {
