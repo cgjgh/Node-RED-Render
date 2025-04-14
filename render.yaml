@@ -2,7 +2,7 @@ services:
   # Node App
   - type: web
     plan: free # optional (defaults to starter)
-    region: frankfurt
+    region: ohio
     name: node-red
     env: node
     repo: https://github.com/yarickshark/Node-red.git
@@ -23,6 +23,6 @@ services:
 databases:
   - name: elephant
     plan: free # optional (defaults to starter)
-    region: frankfurt
+    region: ohio
     databaseName: nodered # optional (Render may add a suffix)
     user: nodered # optional
