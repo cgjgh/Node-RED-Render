@@ -1,19 +1,19 @@
+# Exported from Render on 2025-04-14T18:09:30Z
 services:
-  - type: web
-    region: ohio
-    name: node-red
-    env: docker
-    repo: https://github.com/cgjgh/Node-RED-Render.git
-    plan: free
-    dockerfilePath: ./Dockerfile
-    port: 1880
-    buildCommand: npm install;
-    startCommand: node --max-old-space-size=480 node_modules/node-red/red.js --settings ./settings.js;
-    healthCheckPath: /
-    envVars:
-      - key: NODE_RED_USERNAME
-        description: the username to secure the editor with, default[admin]
-        sync: false
-      - key: NODE_RED_PASSWORD
-        description: the password to secure the editor with, default[password]
-        sync: false
+- type: web
+  name: Node-RED-Render
+  runtime: docker
+  repo: https://github.com/cgjgh/Node-RED-Render
+  plan: free
+  envVars:
+  - key: TZ
+    sync: false
+  - key: NODE_RED_USERNAME
+    sync: false
+  - key: NODE_RED_PASSWORD
+    sync: false
+  region: ohio
+  healthCheckPath: /
+  dockerContext: .
+  dockerfilePath: ./Dockerfile
+version: "1"
