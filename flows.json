@@ -83,10 +83,65 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 850,
-        "y": 320,
+        "x": 250,
+        "y": 420,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "70cd9880a6f5275c",
+        "type": "http in",
+        "z": "6c8a9cccec5333bb",
+        "name": "",
+        "url": "/health",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 260,
+        "wires": [
+            [
+                "e5709275389de4e1"
+            ]
+        ]
+    },
+    {
+        "id": "e984def6896181ca",
+        "type": "http response",
+        "z": "6c8a9cccec5333bb",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 540,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "e5709275389de4e1",
+        "type": "change",
+        "z": "6c8a9cccec5333bb",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "I'm alive!",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 260,
+        "wires": [
+            [
+                "e984def6896181ca"
+            ]
         ]
     },
     {
