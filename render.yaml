@@ -7,10 +7,20 @@ services:
   plan: free
   envVars:
   - key: TZ
+    value: America/Chicago
+  - key: NODE_RED_ADMIN_USER
     sync: false
-  - key: NODE_RED_USERNAME
+  - key: NODE_RED_ADMIN_PASS
     sync: false
-  - key: NODE_RED_PASSWORD
+  - key: NODE_RED_CREDENTIAL_SECRET
+    sync: false
+  - key: GIT_USER_NAME
+    sync: false
+  - key: GIT_USER_EMAIL
+    sync: false
+  - key: GITHUB_TOKEN
+    sync: false
+  - key: REPO_FULL_NAME
     sync: false
   region: ohio
   healthCheckPath: /

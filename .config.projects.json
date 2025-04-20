@@ -1,0 +1,8 @@
+{
+    "projects": {
+        "nodered_render": {
+            "credentialSecret": "NODE_RED_CREDENTIAL_SECRET"
+        }
+    },
+    "activeProject": "nodered_render"
+}
