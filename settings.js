@@ -97,7 +97,7 @@ module.exports = {
                   }
             },
 
-            // users: [{ username: "cgjgh36926@gmail.com" , permissions: "*" }]
+            users: [{ username: "cgjgh36926@gmail.com" , permissions: "*" }]
 
             // users: [
             //    // Define the users who are allowed to access Node-RED.
@@ -107,12 +107,12 @@ module.exports = {
             //    // Add more authorized users as needed.
             //    // { username: "ANOTHER_ALLOWED_GOOGLE_ID", permissions: ["read"] }
             // ]
-            users: function (username) {
-                return Promise.resolve({
-                  username: username,
-                  permissions: "*"
-                });
-              }
+            // users: function (username) {
+            //     return Promise.resolve({
+            //       username: username,
+            //       permissions: "*"
+            //     });
+            //   }
         },
     
         /** The following property can be used to enable HTTPS
