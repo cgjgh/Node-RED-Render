@@ -73,15 +73,47 @@ module.exports = {
         /** To password protect the Node-RED editor and admin API, the following
          * property can be used. See https://nodered.org/docs/security.html for details.
          */
-        adminAuth: (process.env.NODE_RED_ADMIN_USER && process.env.NODE_RED_ADMIN_HASHED_PASS) ? {
-        type: "credentials",
-        users: [{
-            username: process.env.NODE_RED_ADMIN_USER,
-            // In production the password should be a hashed value.
-            password: process.env.NODE_RED_ADMIN_HASHED_PASS,
-            permissions: "*"
-        }]
-    } : null,
+        adminAuth: {
+            type: "strategy",
+            strategy: {
+                name: "google", // Name of the strategy
+                label: 'Sign in with Google', // Label for the login button
+                icon: "fa-google", // FontAwesome icon class for Google
+                strategy: require("passport-google-oauth20").Strategy, // The passport strategy module
+                options: {
+                     // Use environment variables for Google Cloud Project credentials
+                     clientID: process.env.GOOGLE_CLIENT_ID,
+                     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+                     callbackURL: process.env.CALLBACK_URL, 
+                    // You can request specific scopes from Google. 'profile' and 'email' are common.
+                    scope: ['email'],
+                    // If you need to pass the request to the verify function
+                    // passReqToCallback: true
+                },
+
+                verify: function (token, tokenSecret, profile, done) {
+                    profile.username = profile.emails.find(x => x.verified).value;
+                    done(null, profile);
+                  }
+            },
+
+            // users: [{ username: "cgjgh36926@gmail.com" , permissions: "*" }]
+
+            // users: [
+            //    // Define the users who are allowed to access Node-RED.
+            //    // The 'username' here should match the 'username' property
+            //    // you set in the 'verify' function based on the Google profile.
+            //    { username: "cgjgh36926@gmail.com", permissions: ["*"]}
+            //    // Add more authorized users as needed.
+            //    // { username: "ANOTHER_ALLOWED_GOOGLE_ID", permissions: ["read"] }
+            // ]
+            users: function (username) {
+                return Promise.resolve({
+                  username: username,
+                  permissions: "*"
+                });
+              }
+        },
     
         /** The following property can be used to enable HTTPS
          * This property can be either an object, containing both a (private) key

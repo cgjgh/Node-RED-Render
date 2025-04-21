@@ -13,6 +13,9 @@ services:
       - GITHUB_TOKEN
       - REPO_FULL_NAME
       - REPO_BRANCH
+      - GOOGLE_CLIENT_ID
+      - GOOGLE_CLIENT_SECRET
+      - CALLBACK_URL
     ports:
       - "1890:1880"
     restart: "always"

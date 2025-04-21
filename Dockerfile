@@ -10,6 +10,7 @@ USER node-red
 # Copy package.json with correct ownership and install dependencies
 COPY --chown=node-red:node-red package.json /data/package.json
 RUN cd /data && npm install
+RUN cd /data && npm install --save passport-google-oauth20
 
 # Copy settings.js with correct ownership
 COPY --chown=node-red:node-red settings.js /data/settings.js
