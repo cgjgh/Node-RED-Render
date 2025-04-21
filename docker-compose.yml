@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  node-red:
+    image: nodered-render:latest
+    container_name: node-red-render
+    environment:
+      - TZ
+      - NODE_RED_ADMIN_USER
+      - NODE_RED_ADMIN_PASS
+      - NODE_RED_CREDENTIAL_SECRET
+      - GIT_USER_NAME
+      - GIT_USER_EMAIL
+      - GITHUB_TOKEN
+      - REPO_FULL_NAME
+      - REPO_BRANCH
+    ports:
+      - "1890:1880"
+    restart: "always"

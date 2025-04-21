@@ -11,7 +11,11 @@ sed -i "s|NODE_RED_CREDENTIAL_SECRET|$NODE_RED_CREDENTIAL_SECRET|g" /data/.confi
 # Check if the Node-RED project repository has already been cloned.
 # If not, clone the repository from GitHub using the provided token and repository name.
 if [ ! -d /data/projects/nodered_render/.git ]; then
-    git clone https://$GITHUB_TOKEN@github.com/$REPO_FULL_NAME.git /data/projects/nodered_render
+    if [ -n "$REPO_BRANCH" ]; then
+        git clone --branch "$REPO_BRANCH" https://$GITHUB_TOKEN@github.com/$REPO_FULL_NAME.git /data/projects/nodered_render
+    else
+        git clone https://$GITHUB_TOKEN@github.com/$REPO_FULL_NAME.git /data/projects/nodered_render
+    fi
 fi
 
 # Configure the Git user name and email for the cloned repository.
