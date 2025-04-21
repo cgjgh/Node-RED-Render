@@ -1,5 +1,12 @@
 FROM nodered/node-red:latest
 
+# Install jq
+USER root
+RUN apk add --no-cache jq
+
+# Switch back to the default user
+USER node-red
+
 # Copy package.json with correct ownership and install dependencies
 COPY --chown=node-red:node-red package.json /data/package.json
 RUN cd /data && npm install
@@ -16,6 +23,9 @@ RUN mkdir -p /data/projects/nodered_render && chown node-red:node-red /data/proj
 # Copy the custom entrypoint script
 COPY --chown=node-red:node-red entrypoint.sh /data/entrypoint.sh
 RUN chmod +x /data/entrypoint.sh
+
+# Remove Windows line endings in /data
+RUN sed -i 's/\r$//' /data/entrypoint.sh
 
 # Set the custom script as the new entrypoint
 ENTRYPOINT ["/data/entrypoint.sh"]
