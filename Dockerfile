@@ -1,11 +1,17 @@
-FROM nodered/node-red:latest
+FROM nodered/node-red:latest-debian
 
-# Install jq
+# Install jq, curl, and cloudflared
 USER root
-RUN apk add --no-cache jq
+RUN apt-get update && \
+    apt-get install -y jq curl sudo && \
+    mkdir -p --mode=0755 /usr/share/keyrings && \
+    curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null && \
+    echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared any main' | tee /etc/apt/sources.list.d/cloudflared.list && \
+    apt-get update && \
+    apt-get install -y cloudflared
 
 # Switch back to the default user
-USER node-red
+# USER node-red
 
 # Copy package.json with correct ownership and install dependencies
 COPY --chown=node-red:node-red package.json /data/package.json

@@ -22,6 +22,8 @@ services:
     sync: false
   - key: REPO_FULL_NAME
     sync: false
+  - key: CLOUDFLARED_TOKEN
+    sync: false
   region: ohio
   healthCheckPath: /
   dockerContext: .

@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Start Cloudflared in the background to create a tunnel to Node-RED
+echo "Starting Cloudflared tunnel..."
+cloudflared service install $CLOUDFLARED_TOKEN
+
+# Switch to the nodered user for subsequent commands
+sudo -u node-red bash -c "echo 'Switched to nodered user'"
 # Hash the Node-RED admin password using bcrypt and store it in an environment variable.
 # This is used for securing the Node-RED admin interface.
 echo "Hashing Node-RED admin password..."
@@ -25,6 +31,9 @@ if [ ! -d /data/projects/nodered_render/.git ]; then
     if [ -d /data/projects/nodered_render/.git ]; then
         echo "Repository cloned successfully."
 
+         # Mark the directory as safe for Git operations
+        git config --global --add safe.directory /data/projects/nodered_render
+        
         # Get the dependencies from the cloned project's package.json
         dependencies=$(jq -r '.dependencies | to_entries | map("\(.key)@\(.value)") | join(" ")' /data/projects/nodered_render/package.json)
         
