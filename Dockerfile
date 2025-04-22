@@ -33,5 +33,8 @@ RUN chmod +x /data/entrypoint.sh
 # Remove Windows line endings in /data
 RUN sed -i 's/\r$//' /data/entrypoint.sh
 
+# Expose port 80
+EXPOSE 80
+
 # Set the custom script as the new entrypoint
 ENTRYPOINT ["/data/entrypoint.sh"]
