@@ -19,6 +19,38 @@
  *  - Node Settings
  *
  **/
+const CLOUDFLARE_URL = process.env.CLOUDFLARE_URL || 'https://example.com'
+const cloudflareUrl = new URL(CLOUDFLARE_URL)
+const expectedHost = cloudflareUrl.host
+const expectedOrigin = `${cloudflareUrl.protocol}//${cloudflareUrl.host}`
+
+if (!process.env.CLOUDFLARE_URL) {
+    console.warn('CLOUDFLARE_URL not set in environment. Using default:', CLOUDFLARE_URL)
+}
+
+function createOriginMiddleware () {
+    return function (req, res, next) {
+        const redirect = () => {
+            const redirectUrl = new URL(req.originalUrl, CLOUDFLARE_URL)
+            console.log(`Redirecting to ${redirectUrl.toString()} due to origin mismatch.`)
+            res.redirect(redirectUrl.toString())
+        }
+
+        if (req.headers.origin) {
+            if (req.headers.origin !== expectedOrigin) {
+                redirect()
+            } else {
+                next()
+            }
+        } else {
+            if (req.headers.host !== expectedHost) {
+                redirect()
+            } else {
+                next()
+            }
+        }
+    }
+}
 
 module.exports = {
 
@@ -74,15 +106,20 @@ module.exports = {
          * property can be used. See https://nodered.org/docs/security.html for details.
          */
         adminAuth: (process.env.NODE_RED_ADMIN_USER && process.env.NODE_RED_ADMIN_HASHED_PASS) ? {
-        type: "credentials",
-        users: [{
-            username: process.env.NODE_RED_ADMIN_USER,
-            // In production the password should be a hashed value.
-            password: process.env.NODE_RED_ADMIN_HASHED_PASS,
-            permissions: "*"
-        }]
-    } : null,
-    
+            type: "credentials",
+            users: [{
+                username: process.env.NODE_RED_ADMIN_USER,
+                // In production the password should be a hashed value.
+                password: process.env.NODE_RED_ADMIN_HASHED_PASS,
+                permissions: "*"
+            }]
+        } : null,
+
+        httpAdminMiddleware: createOriginMiddleware(),
+
+        dashboard: {
+            middleware: createOriginMiddleware()
+        },
         /** The following property can be used to enable HTTPS
          * This property can be either an object, containing both a (private) key
          * and a (public) certificate, or a function that returns such an object.

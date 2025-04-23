@@ -24,6 +24,8 @@ services:
     sync: false
   - key: CLOUDFLARED_TOKEN
     sync: false
+  - key: CLOUDFLARE_URL
+    sync: false
   region: ohio
   healthCheckPath: /
   dockerContext: .

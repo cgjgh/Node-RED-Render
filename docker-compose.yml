@@ -14,6 +14,7 @@ services:
       - REPO_FULL_NAME
       - REPO_BRANCH
       - CLOUDFLARED_TOKEN
+      - CLOUDFLARE_URL
     ports:
       - "1890:1880"
     restart: "always"
