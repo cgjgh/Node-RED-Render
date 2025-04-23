@@ -30,6 +30,12 @@ if (!process.env.CLOUDFLARE_URL) {
 
 function createOriginMiddleware () {
     return function (req, res, next) {
+        // Add exception for /health path
+        if (req.path === '/health') {
+            next()
+            return
+        }
+
         const redirect = () => {
             const redirectUrl = new URL(req.originalUrl, CLOUDFLARE_URL)
             console.log(`Redirecting to ${redirectUrl.toString()} due to origin mismatch.`)
